@@ -16,11 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,re_path
-from . import views
+from . import auth
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-     re_path('sign-up', views.signup),
-    re_path('login', views.login),
-    re_path('test-token', views.test_token)
+     re_path('sign-up', auth.signup),
+    re_path('login', auth.login),
+    re_path('test-token', auth.test_token)
 ]
