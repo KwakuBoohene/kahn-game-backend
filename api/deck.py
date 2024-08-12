@@ -1,34 +1,41 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from django.contrib.auth.models import User
+from .models import Deck
 from rest_framework.authtoken.models import Token
-from ..backend.serializers import UserSerializer
+from .serializers import DeckSerializer
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 
 
 @api_view(['POST'])
-def signup(request):
-    serializer = UserSerializer(data=request.data)
+def create(request):
+    serializer = DeckSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        user = User.objects.get(username=request.data['username'])
-        user.set_password(request.data['password'])
-        user.save()
-        token = Token.objects.create(user=user)
-        return Response({'token': token.key, 'user': serializer.data})
+        deck = Deck.objects.get(uuid=request.data['uuid'])
+        deck.save()
+        return Response({'message': 'Deck created'}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_200_OK)
 
-@api_view(['POST'])
-def login(request):
-    user = get_object_or_404(User, username=request.data['username'])
-    if not user.check_password(request.data['password']):
-        return Response("missing user", status=status.HTTP_404_NOT_FOUND)
-    token, created = Token.objects.get_or_create(user=user)
-    serializer = UserSerializer(user)
-    return Response({'token': token.key, 'user': serializer.data})
+@api_view(['GET'])
+def read(request):
+    deck = get_object_or_404(Deck, uuid=request.data['uuid'])
+    return Response({'deck': deck}, status=status.HTTP_200_OK)
+
+@api_view(['PUT'])
+def update(request):
+    deck = get_object_or_404(Deck, uuid=request.data['uuid'])
+    # update the deck
+    if deck.deckname:
+        deck.deckname = request.data['deckname']
+    if deck.description:
+        deck.description = request.data['description']
+    deck.save()
+    return Response({'message': 'Deck updated'}, status=status.HTTP_200_OK)
 
 
-@api_view(['POST'])
-def test_token(request):
-    return Response({})
+@api_view(['DELETE'])
+def delete(request):
+    deck = get_object_or_404(Deck, uuid=request.data['uuid'])
+    return Response(serializer.errors, status=status.HTTP_200_OK)
+
