@@ -22,5 +22,8 @@ from . import auth,deck
 urlpatterns = [
      path('sign-up', auth.signup),
     path('login', auth.login),
+    path('deck/', deck.read),
+    path('deck/<str:deck_uid>/', deck.update),
+    path('deck/', deck.create),
     path('test-token', auth.test_token)
 ]
