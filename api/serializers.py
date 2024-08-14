@@ -4,4 +4,9 @@ from .models import Deck
 class DeckSerializer(serializers.ModelSerializer):
     class Meta:
         model = Deck
-        fields = ['uid', 'deckname', 'description', 'user']
+        fields = [ 'deckname', 'description']
+
+class FullDeckSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Deck
+        fields = ('deckname', 'description', 'uid')
