@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-%^vhefm3lmznr@mni02nl9bazo!qo#t_)_zt!+)+(t28!@gqlv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [os.getenv('SERVER_IP','127.0.0.1'), 'localhost', os.getenv('BACKEND_URL', 'http://kwakuboohene.com')]
+ALLOWED_HOSTS = [os.getenv('SERVER_IP','127.0.0.1'), 'localhost', os.getenv('BACKEND_URL', 'http://kahn-api.kwakuboohene.com')]
 
 
 
@@ -143,6 +143,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ORIGIN_WHITELIST = [
     os.getenv('FRONTEND_URL', 'http://localhost:5173'),
     # other origins...
+    "http://127.0.0.1:8000",
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
