@@ -142,6 +142,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_WHITELIST = [
     os.getenv('FRONTEND_URL', 'http://localhost:5173'),
-    
     # other origins...
 ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
