@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-%^vhefm3lmznr@mni02nl9bazo!qo#t_)_zt!+)+(t28!@gqlv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [os.getenv('SERVER_IP','127.0.0.1'), 'localhost', os.getenv('BACKEND_URL', 'http://kwakuboohene.com')]
 
 
 
