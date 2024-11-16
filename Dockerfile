@@ -10,13 +10,16 @@ WORKDIR /app
 COPY . /app
 
 # # Install any necessary system dependencies
-RUN apt-get update && apt-get install -y pkg-config python3-dev default-libmysqlclient-dev build-essential
+RUN apt-get update && apt-get install -y pkg-config python3-dev default-libmysqlclient-dev  build-essential 
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose the port that Django will run on
 EXPOSE 8000
+
+# Run any database migrations
+RUN python manage.py migrate
 
 # Command to run the Django development server
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

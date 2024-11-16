@@ -5,9 +5,9 @@ services:
     image: mysql:8.0
     restart: always
     environment:
-      MYSQL_DATABASE: kahn_game
-      MYSQL_USER: kahn_user
-      MYSQL_PASSWORD: Password123
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_ROOT_PASSWORD: rootpassword
     volumes:
       - db_data:/var/lib/mysql
@@ -19,22 +19,12 @@ services:
       timeout: 5s
     ports:
       - "3306:3306"
+    networks:
+      - app_network
   
-  web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/app
-    ports:
-      - "8000:8000"
-    environment:
-      DB_NAME: kahn_game
-      DB_USERNAME: kahn_user
-      DB_PASSWORD: Password123
-      DB_HOST: 127.0.0.1
-      DB_PORT: 3306
-    depends_on:
-      - db
+
+networks:
+  app_network:
 
 volumes:
   db_data:
