@@ -67,7 +67,7 @@ SERVER_IP=127.0.0.1
 
 ### Using Docker (Recommended)
 
-1. Build and start the containers:
+1. Build and start all services:
 ```bash
 docker-compose up --build
 ```
@@ -76,12 +76,14 @@ This will:
 - Start MySQL database on port 3306
 - Run database migrations
 - Start Django backend on port 8000
-- Start Frontend development server
+- Start Vite development server on port 5173
 
 2. Access the application:
 - Frontend: http://localhost:5173
 - Backend API: http://localhost:8000
 - Database: localhost:3306
+
+Note: The first build might take a few minutes as it needs to install all dependencies for both frontend and backend.
 
 ### Manual Setup
 
